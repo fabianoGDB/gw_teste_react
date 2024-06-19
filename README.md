@@ -15,4 +15,23 @@ npm install react react-dom @types/react @types/react-dom
 npm install --save bootstrap
 
 npm install node-sass
+
+npm install react-router-dom@ @types/react-router-dom
+
+npm install axios
+
+npm install qs @types/qs
+
+npm install jwt-decode @types/jwt-decode
+
+npm install react-select @types/react-select
+
+npm install react-currency-input-field
+
+npm install react-paginate @types/react-paginate
+
+npm install react-toastify
+
+npm install react-hook-form
+
 ```
