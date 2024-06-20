@@ -1,8 +1,8 @@
 import axios, { AxiosRequestConfig } from 'axios';
 import { useEffect, useState } from 'react';
 import { User } from '../../types/user';
-import { SpringPage } from '../../types/springPage';
-import { requestBackend } from 'util/requests';
+import { PaginationParams } from '../../types/paginationParams';
+import { requestBackend } from '../../util/requests';
  
 function Users() {
   const [page, setPage] = useState<SpringPage<User>>();

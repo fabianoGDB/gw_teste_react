@@ -8,6 +8,7 @@ import { saveAuthData } from 'util/storage';
 import { getTokenData } from 'util/token';
 
 import './styles.css';
+import { useNavigate } from 'react-router-dom';
 
 type CredentialsDTO = {
   username: string;
@@ -30,7 +31,7 @@ function Login() {
 
   const { register, handleSubmit, formState: {errors} } = useForm<CredentialsDTO>();
 
-  const history = useHistory();
+  const history = useNavigate();
 
   const onSubmit = (formData: CredentialsDTO) => {
     requestBackendLogin(formData)

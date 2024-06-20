@@ -1,0 +1,102 @@
+npm install axios react-table
+
+
+import axios from 'axios';
+
+const API_URL = 'http://seu-endereco-de-api/contatos';
+
+export const getContacts = async () => {
+  try {
+    const response = await axios.get(API_URL);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar contatos', error);
+    throw error;
+  }
+};
+
+import axios from 'axios';
+
+const API_URL = 'http://seu-endereco-de-api/contatos';
+
+export const getContacts = async () => {
+  try {
+    const response = await axios.get(API_URL);
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar contatos', error);
+    throw error;
+  }
+};
+
+import React, { useEffect, useState } from 'react';
+import { useTable } from 'react-table';
+import { getContacts } from '../services/contactService';
+
+const ContactTable = () => {
+  const [contacts, setContacts] = useState([]);
+
+  useEffect(() => {
+    const fetchContacts = async () => {
+      try {
+        const data = await getContacts();
+        setContacts(data);
+      } catch (error) {
+        console.error('Erro ao carregar contatos', error);
+      }
+    };
+
+    fetchContacts();
+  }, []);
+
+  const columns = React.useMemo(
+    () => [
+      { Header: 'ID', accessor: 'id' },
+      { Header: 'Nome', accessor: 'name' },
+      { Header: 'Email', accessor: 'email' },
+      { Header: 'CEP', accessor: 'cep' },
+      { Header: 'Telefone', accessor: 'telefone' },
+      { Header: 'Criado Em', accessor: 'criadoEm' },
+      { Header: 'Atualizado Em', accessor: 'atualizadoEm' },
+    ],
+    []
+  );
+
+  const data = React.useMemo(() => contacts, [contacts]);
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow
+  } = useTable({ columns, data });
+
+  return (
+    <table {...getTableProps()}>
+      <thead>
+        {headerGroups.map(headerGroup => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map(column => (
+              <th {...column.getHeaderProps()}>{column.render('Header')}</th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map(row => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map(cell => (
+                <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+              ))}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
+
+export default ContactTable;

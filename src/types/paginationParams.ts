@@ -1,4 +1,4 @@
-export type SpringPage<T> = {
+export type PaginationParams<T> = {
     content: T[];
     last: boolean;
     totalElements: number;
